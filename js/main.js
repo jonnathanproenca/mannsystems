@@ -10,7 +10,7 @@
   function getSaved() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
   function save(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
   var saved = getSaved();
-  var dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+  var dark = true; /* versão glass: sempre escura */
   function applyTheme() {
     root.setAttribute('data-theme', dark ? 'dark' : 'light');
     var m = $('meta[name="theme-color"]'); if (m) m.setAttribute('content', dark ? '#070B22' : '#1E3799');

@@ -1,0 +1,106 @@
+/* ===== Mann Systems – versão Glassmorphism (sempre escura) ===== */
+:root,:root[data-theme="dark"]{
+  --paper:#050920; --surface:rgba(255,255,255,.07); --ink:#F4F6FF; --text:#C9D0EC; --muted:#97A3C8;
+  --line:rgba(255,255,255,.16); --brand:#8BA5FF; --tint:rgba(255,255,255,.04);
+  --glass:linear-gradient(145deg,rgba(255,255,255,.14),rgba(255,255,255,.04));
+  --glass-strong:linear-gradient(145deg,rgba(255,255,255,.2),rgba(255,255,255,.07));
+  --blur:blur(22px) saturate(1.5);
+  --edge:inset 0 1px 0 rgba(255,255,255,.28),inset 0 0 0 1px rgba(255,255,255,.05);
+  --shadow:0 20px 50px -20px rgba(0,0,0,.65),var(--edge);
+  color-scheme:dark;
+}
+body{background:var(--paper)}
+
+/* fundo: orbes com as cores da marca */
+.orbs{position:fixed;inset:0;z-index:-1;overflow:hidden;background:radial-gradient(120% 90% at 50% 0%,#0B1448 0%,#050920 60%)}
+.orbs i{position:absolute;border-radius:50%;filter:blur(90px);opacity:.7;will-change:transform}
+.o1{width:62vmax;height:62vmax;left:-18vmax;top:-20vmax;background:#2442D6;animation:drift1 26s ease-in-out infinite alternate}
+.o2{width:46vmax;height:46vmax;right:-14vmax;top:18vh;background:#45AAF2;opacity:.45;animation:drift2 32s ease-in-out infinite alternate}
+.o3{width:34vmax;height:34vmax;left:30vw;bottom:-16vmax;background:#FD9644;opacity:.32;animation:drift3 38s ease-in-out infinite alternate}
+.o4{width:28vmax;height:28vmax;right:22vw;top:-10vmax;background:#7F8FA6;opacity:.35;animation:drift2 44s ease-in-out infinite alternate-reverse}
+@keyframes drift1{to{transform:translate(12vmax,10vmax) scale(1.12)}}
+@keyframes drift2{to{transform:translate(-14vmax,8vmax) scale(.9)}}
+@keyframes drift3{to{transform:translate(-18vmax,-8vmax) scale(1.2)}}
+
+/* utilitário de vidro */
+.nav-in,.hero-facts li,.stage-tag,.marquee,.acc-item,.steps .n,.ph,.tab-list button,.tab-panels,.chips li,.info svg,.social a,.form,.foot,.icon-btn,.btn-ghost{
+  background:var(--glass);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border:1px solid var(--line);box-shadow:var(--edge)}
+
+/* navegação flutuante */
+.nav{padding-top:12px}
+.nav.scrolled{background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:none}
+.nav-in{height:64px;border-radius:20px;padding:0 14px 0 18px;box-shadow:var(--shadow)}
+.menu a:hover{background:rgba(255,255,255,.12)}
+.menu a.on{background:rgba(255,255,255,.16);box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}
+
+/* botões */
+.btn-primary{--bg:linear-gradient(135deg,#3B63F0,#45AAF2);border-color:rgba(255,255,255,.3);box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 14px 30px -12px rgba(69,170,242,.8)}
+:root[data-theme="dark"] .btn-primary{--bg:linear-gradient(135deg,#3B63F0,#45AAF2)}
+.btn-primary:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 18px 38px -10px rgba(69,170,242,.95)}
+.btn-ghost:hover{background:var(--glass-strong);border-color:rgba(255,255,255,.4)}
+.btn-wa{--bg:linear-gradient(135deg,#16A34A,#22C55E);border-color:rgba(255,255,255,.25)}
+
+/* hero */
+.hero-grid{opacity:.5}
+.hero-facts li{color:var(--text)}
+.stage-ring{border-color:rgba(255,255,255,.22)}
+.stage-ring.r2{border-color:rgba(255,255,255,.12)}
+.stage-logo::before{content:"";position:absolute;inset:-14%;border-radius:36%;background:var(--glass);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.2);box-shadow:var(--edge),0 30px 60px -30px rgba(0,0,0,.7);transform:rotate(-6deg)}
+.piece{filter:drop-shadow(0 16px 22px rgba(0,0,0,.35))}
+:root[data-theme="dark"] .pc-c{filter:brightness(1.55) saturate(1.1) drop-shadow(0 16px 22px rgba(0,0,0,.35))}
+.scroll-hint{border-color:rgba(255,255,255,.3)}
+
+/* faixa */
+.marquee{background:rgba(255,255,255,.06);color:#fff;border-radius:0;border-left:0;border-right:0}
+
+/* seções */
+.sec-dark{background:transparent}
+.dark-bg{display:none}
+.sec-tint{background:transparent}
+
+/* serviços */
+.acc-item{background:var(--glass)}
+.acc-item::before{height:3px;opacity:.9}
+.acc-item.is-open{background:var(--glass-strong);border-color:rgba(255,255,255,.3)}
+.acc-item.is-open::after{opacity:.9;width:340px;height:340px}
+.acc-item:not(.is-open):hover{background:var(--glass-strong);border-color:var(--c)}
+
+/* método */
+.steps .n{background:var(--glass-strong);border-radius:16px}
+.steps li:hover .n{background:rgba(69,170,242,.55)}
+.steps-line{background:rgba(255,255,255,.14)}
+
+/* sobre */
+.ph{padding:0;border-width:1px}
+.ph-b,.ph-c{border:1px solid rgba(255,255,255,.35)}
+.ph::after{background:linear-gradient(160deg,rgba(36,66,214,.4),rgba(5,9,32,.1) 60%)}
+.ph-mark{filter:drop-shadow(0 16px 22px rgba(0,0,0,.45))}
+
+/* abas */
+.tab-list button[aria-selected="true"],:root[data-theme="dark"] .tab-list button[aria-selected="true"]{background:linear-gradient(135deg,rgba(59,99,240,.85),rgba(69,170,242,.55));border-color:rgba(255,255,255,.35);color:#fff}
+.tab-panels{background:var(--glass-strong)}
+.chips li{background:var(--glass)}
+.chips li:hover{background:linear-gradient(135deg,rgba(59,99,240,.8),rgba(69,170,242,.55));color:#fff}
+
+/* contato */
+.info svg{color:#fff}
+.social a:hover{background:linear-gradient(135deg,rgba(59,99,240,.85),rgba(69,170,242,.6));color:#fff}
+.form{background:var(--glass-strong);box-shadow:var(--shadow)}
+.field input,.field textarea{background:rgba(5,9,32,.35);border-color:rgba(255,255,255,.18);color:#fff}
+.field input:focus,.field textarea:focus{background:rgba(5,9,32,.5)}
+
+/* rodapé */
+.foot{background:rgba(255,255,255,.05);border:0;border-top:1px solid var(--line);border-radius:0;box-shadow:none}
+.totop{background:var(--glass-strong);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border:1px solid var(--line);box-shadow:var(--edge)}
+.totop:hover{background:rgba(253,150,68,.8)}
+
+/* menu mobile */
+@media (max-width:860px){
+  .menu{inset:84px 16px auto 16px;border-radius:20px;background:rgba(8,12,44,.88);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border:1px solid var(--line);box-shadow:var(--edge)}
+  .acc-item,.acc-item.is-open{box-shadow:var(--edge)}
+}
+/* sem suporte a backdrop-filter: fundo sólido legível */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .nav-in,.acc-item,.tab-panels,.form,.ph,.foot,.menu,.tab-list button,.chips li,.stage-tag,.marquee{background:rgba(18,26,74,.94)}
+}
+@media (prefers-reduced-motion:reduce){.orbs i{animation:none}}
