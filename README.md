@@ -13,7 +13,7 @@ Site estático (HTML, CSS e JS puros). Sem build, sem dependências.
 - `SITE`, `WHATSAPP`, `EMAIL`: endereço oficial, número do WhatsApp e e-mail de contato.
 
 ## Endereço do site
-`index.html`, `404.html`, `privacidade.html`, `termos.html`, `robots.txt` e `sitemap.xml` usam `https://www.mannsystems.com.br` como endereço oficial.
+`index.html`, `404.html`, `privacidade.html`, `termos.html`, `robots.txt` e `sitemap.xml` usam `https://jonnathanproenca.github.io/mannsystems` como endereço oficial.
 Se o site ficar em outro endereço (por exemplo `usuario.github.io/repo`), troque esse texto nesses arquivos.
 
 ## Conferência rápida

@@ -1,10 +1,10 @@
 /* Configurações do site. Edite aqui, sem mexer no resto. */
 window.MANN = {
   /* Endereço oficial do site (usado em sitemap, canonical e compartilhamento). */
-  SITE: 'https://www.mannsystems.com.br',
+  SITE: 'https://jonnathanproenca.github.io/mannsystems',
 
   /* Google Analytics: cole o ID de métrica (formato G-XXXXXXXXXX). Vazio = Analytics desligado. */
-  GA_ID: '',
+  GA_ID: 'G-C02ENL6Y0C',
 
   /* Formulário: cole o endereço de um serviço como Formspree (https://formspree.io/f/xxxx).
      Vazio = o formulário abre o WhatsApp ou o e-mail com a mensagem pronta. */
