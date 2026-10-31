@@ -195,3 +195,19 @@ body.is-loading .h-xl .ln>span,body.is-loading .hero-p,body.is-loading .hero-cta
 .form{background:linear-gradient(145deg,rgba(18,28,88,.62),rgba(8,12,44,.55))}
 .foot,.legal-foot{background:rgba(5,9,32,.6);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
 .nf .big img{filter:brightness(1.15) drop-shadow(0 18px 24px rgba(0,0,0,.4))}
+
+/* menu: sem quebra de linha e compacto em larguras médias */
+.menu a{white-space:nowrap}
+.brand{white-space:nowrap}
+@media (min-width:861px) and (max-width:1240px){
+  .nav-in{gap:10px}
+  .brand em{display:none}
+  .menu{gap:0}
+  .menu a{padding:8px 11px;font-size:.9rem}
+}
+@media (min-width:861px) and (max-width:1020px){
+  .menu a{padding:8px 8px;font-size:.86rem}
+  .nav-actions .btn-wa{font-size:0;gap:0;padding:10px 12px}
+  .nav-actions .btn-wa svg{width:20px;height:20px}
+  .brand span{font-size:.98rem}
+}

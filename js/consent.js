@@ -6,17 +6,12 @@
   function get() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
   function set(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
 
-  var gaLoaded = false;
+  /* gtag.js já está no <head> (Consent Mode, analytics_storage negado por padrão). Aqui só atualizamos o consentimento. */
   function loadGA() {
-    if (gaLoaded || !/^G-[A-Z0-9]{6,}$/.test(cfg.GA_ID || '')) return;
-    gaLoaded = true;
-    var s = d.createElement('script');
-    s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + cfg.GA_ID;
-    d.head.appendChild(s);
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = function () { window.dataLayer.push(arguments); };
-    window.gtag('js', new Date());
-    window.gtag('config', cfg.GA_ID, { anonymize_ip: true });
+    if (typeof window.gtag === 'function') window.gtag('consent', 'update', { analytics_storage: 'granted' });
+  }
+  function revokeGA() {
+    if (typeof window.gtag === 'function') window.gtag('consent', 'update', { analytics_storage: 'denied' });
   }
 
   var box = null;
@@ -37,7 +32,7 @@
     box.addEventListener('click', function (e) {
       var b = e.target.closest('[data-ck]'); if (!b) return;
       var v = b.getAttribute('data-ck'); set(v); hide();
-      if (v === 'granted') loadGA();
+      if (v === 'granted') loadGA(); else revokeGA();
     });
     return box;
   }
@@ -45,8 +40,7 @@
   function hide() { if (box) box.hidden = true; d.body.classList.remove('has-cookie'); }
 
   var saved = get();
-  if (saved === 'granted') loadGA();
-  else if (!saved) setTimeout(show, 900);
+  if (!saved) setTimeout(show, 900);
 
   d.addEventListener('click', function (e) {
     var a = e.target.closest('[data-cookie-settings]');

@@ -20,3 +20,8 @@ Se o site ficar em outro endereço (por exemplo `usuario.github.io/repo`), troqu
 - `/404.html` abre a página de erro personalizada.
 - `/robots.txt` e `/sitemap.xml` abrem no navegador.
 - Cole o link do site no WhatsApp e veja se a imagem de compartilhamento aparece (pode levar alguns minutos para o WhatsApp atualizar o cache).
+
+## PesqApp
+- `pesqapp.html` + `css/pesqapp.css` + `js/pesqapp.js` + `images/pesqapp/` (vídeo, telas).
+- Seção "Produtos" na home (`#produtos`).
+- Tag do Google no `<head>` de todas as páginas, com Consent Mode (analytics negado até aceitar).

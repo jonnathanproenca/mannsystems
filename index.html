@@ -2,6 +2,16 @@
 <html lang="pt-BR" data-theme="dark">
 <head>
   <meta charset="UTF-8">
+  <!-- Google tag (gtag.js) com Consent Mode: nada de cookies de análise antes do aceite -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-C02ENL6Y0C"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {analytics_storage:'denied', ad_storage:'denied', ad_user_data:'denied', ad_personalization:'denied'});
+    try { if (localStorage.getItem('mann-consent') === 'granted') gtag('consent', 'update', {analytics_storage:'granted'}); } catch (e) {}
+    gtag('js', new Date());
+    gtag('config', 'G-C02ENL6Y0C', {anonymize_ip: true});
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Mann Systems Consulting | Consultoria de TI em São Paulo</title>
   <meta name="description" content="Consultoria de TI sob medida em São Paulo: infraestrutura, desenvolvimento de software, análise de dados e criação de sites. Fale com a Mann Systems Consulting.">
@@ -34,6 +44,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/glass.css">
+  <link rel="stylesheet" href="css/pesqapp.css">
   <noscript><style>.loader{display:none!important}.reveal{opacity:1!important;transform:none!important}.piece{opacity:1!important;transform:none!important}</style></noscript>
   <script type="application/ld+json">
   {
@@ -80,6 +91,7 @@
       </a>
       <nav class="menu" id="menu" aria-label="Principal">
         <a href="#servicos">Serviços</a>
+        <a href="#produtos">Produtos</a>
         <a href="#metodo">Método</a>
         <a href="#sobre">Sobre</a>
         <a href="#proposito">Missão e valores</a>
@@ -221,6 +233,37 @@
             </div>
           </article>
         </div>
+      </div>
+    </section>
+
+    <!-- PRODUTOS -->
+    <section class="sec" id="produtos">
+      <div class="wrap">
+        <header class="sec-head reveal">
+          <h2 class="h-lg">Produto próprio, feito para quem vive de pesqueiro.</h2>
+          <p class="lead">Além dos serviços, a Mann Systems tem um sistema completo para o dia a dia do pesque-pague.</p>
+        </header>
+        <article class="pa-card pa-glass reveal">
+          <div>
+            <span class="pa-eyebrow">Produto Mann Systems</span>
+            <h3>PesqApp</h3>
+            <p class="pa-tag">Gestão do pesque-pague, <em>do tanque ao caixa.</em></p>
+            <ul class="pa-list">
+              <li>Comanda única por cliente: consumo, pesca e piscina, do começo ao fim.</li>
+              <li>App do salão para garçom e pesagem, que funciona mesmo sem sinal.</li>
+              <li>Cozinha e bar com tela de pedidos, caixa com turno conferido e cardápio digital por QR.</li>
+              <li>Indicadores, custos por prato, alertas antifraude e financeiro no mesmo lugar.</li>
+            </ul>
+            <div class="pa-cta">
+              <a class="btn btn-primary magnetic" href="pesqapp.html">Conhecer o PesqApp</a>
+              <a class="btn btn-ghost" href="#contato">Falar com a gente</a>
+            </div>
+          </div>
+          <div class="pa-shot" aria-hidden="false">
+            <img class="win" src="images/pesqapp/hero-painel.webp" alt="Tela de custos e cardápio do PesqApp, com Curva ABC e margem por prato" width="1099" height="900" loading="lazy">
+            <img class="ph-m" src="images/pesqapp/hero-celular.webp" alt="Cardápio digital do PesqApp aberto no celular do cliente" width="461" height="940" loading="lazy">
+          </div>
+        </article>
       </div>
     </section>
 
@@ -395,6 +438,7 @@
       </div>
       <nav aria-label="Rodapé">
         <a href="#servicos">Serviços</a>
+        <a href="#produtos">Produtos</a>
         <a href="#metodo">Método</a>
         <a href="#sobre">Sobre</a>
         <a href="#proposito">Missão e valores</a>
