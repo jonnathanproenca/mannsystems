@@ -4,15 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Página não encontrada | Mann Systems Consulting</title>
-  <meta name="robots" content="noindex">
+  <meta name="description" content="A página que você procura não existe ou mudou de endereço.">
+  <meta name="robots" content="noindex, follow">
+  <meta name="theme-color" content="#050920">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <script>
     /* GitHub Pages de projeto (usuario.github.io/repo) serve em subpasta: ajusta os caminhos. */
     (function () {
-      var p = location.pathname.split('/'), base = (location.hostname.endsWith('github.io') && p[1]) ? '/' + p[1] + '/' : '/';
-      document.write('<base href="' + base + '">');
+      var p = location.pathname.split('/'), b = (location.hostname.endsWith('github.io') && p[1]) ? '/' + p[1] + '/' : '/';
+      document.write('<base href="' + b + '">');
     })();
   </script>
-  <link rel="icon" href="images/Logo.ico">
+  <link rel="icon" href="images/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="images/favicon-16.png" sizes="16x16" type="image/png">
+  <link rel="icon" href="images/Logo.ico" sizes="any">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/glass.css">
@@ -20,13 +28,14 @@
 <body>
   <div class="orbs" aria-hidden="true"><i class="o1"></i><i class="o2"></i><i class="o3"></i><i class="o4"></i></div>
   <main class="nf">
-    <div class="hero-grid" aria-hidden="true"></div>
     <div class="nf-in">
-      <div class="big" aria-label="404">4<img src="images/piece-c-diamond.svg" alt="">4</div>
+      <div class="big" aria-label="404">4<img src="images/Logo.png" alt="">4</div>
       <h1 class="h-lg" style="max-width:none">Essa página não existe.</h1>
       <p class="lead">O endereço pode ter mudado ou estar digitado errado. Volte ao início para continuar.</p>
       <a class="btn btn-primary" href="./">Voltar para o início</a>
     </div>
   </main>
+  <script src="js/config.js"></script>
+  <script src="js/consent.js"></script>
 </body>
 </html>

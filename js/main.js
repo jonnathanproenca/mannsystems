@@ -2,6 +2,18 @@
   'use strict';
   var d = document, root = d.documentElement;
   var reduce = window.matchMedia('(prefers-color-scheme: no-preference)') && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* ---------- carregando: some quando a página termina de carregar ---------- */
+  var loader = d.getElementById('loader'), started = false;
+  function start() {
+    if (started) return; started = true;
+    if (loader) { loader.classList.add('done'); setTimeout(function () { if (loader.parentNode) loader.parentNode.removeChild(loader); }, 700); }
+    d.body.classList.remove('is-loading');
+    var ps = d.querySelectorAll('.piece');
+    for (var i = 0; i < ps.length; i++) ps[i].classList.add('in');
+  }
+  if (d.readyState === 'complete') setTimeout(start, 250); else window.addEventListener('load', function () { setTimeout(start, 250); });
+  setTimeout(start, 3500);
+
   var $ = function (s, c) { return (c || d).querySelector(s); };
   var $$ = function (s, c) { return Array.prototype.slice.call((c || d).querySelectorAll(s)); };
 
@@ -85,7 +97,6 @@
 
   /* ---------- hero: montagem da logo + paralaxe ---------- */
   var pieces = $$('.piece');
-  pieces.forEach(function (p) { p.classList.add('in'); });
   var stage = $('#stage');
   if (stage && !reduce && window.matchMedia('(pointer:fine)').matches) {
     var tx = 0, ty = 0, cx = 0, cy = 0, raf = null;
@@ -168,38 +179,86 @@
     media.addEventListener('mouseleave', function () { phs.forEach(function (p) { p.style.transform = ''; }); });
   }
 
-  /* ---------- formulário (sem backend: abre WhatsApp ou e-mail) ---------- */
-  var form = $('#form'), note = $('#form-note');
-  var tel = $('#f-tel');
-  if (tel) tel.addEventListener('input', function () {
+  /* ---------- formulário ---------- */
+  var cfg = window.MANN || {};
+  var WA = cfg.WHATSAPP || '5511960817141', MAIL = cfg.EMAIL || 'jonnathan-lemos@hotmail.com';
+  var form = $('#form'), note = $('#form-note'), tel = $('#f-tel');
+  var NOTE_DEFAULT = note.textContent;
+  tel.addEventListener('input', function () {
     var v = tel.value.replace(/\D/g, '').slice(0, 11), o = v;
     if (v.length > 6) o = '(' + v.slice(0, 2) + ') ' + v.slice(2, v.length - 4) + '-' + v.slice(-4);
     else if (v.length > 2) o = '(' + v.slice(0, 2) + ') ' + v.slice(2);
     tel.value = o;
   });
-  var via = 'wa';
+  var rules = {
+    'f-name': function (v) { return v.trim().length < 2 ? 'Digite o seu nome.' : ''; },
+    'f-email': function (v) {
+      if (!v.trim()) return 'Digite o seu e-mail.';
+      return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()) ? '' : 'Esse e-mail parece incompleto. Exemplo: nome@empresa.com.br';
+    },
+    'f-tel': function (v) {
+      var n = v.replace(/\D/g, '');
+      if (!n) return 'Digite o seu telefone com DDD.';
+      return n.length < 10 ? 'Faltam números. Use DDD e telefone, como (11) 96081-7141.' : '';
+    },
+    'f-msg': function (v) { return v.trim().length < 10 ? 'Conte um pouco mais sobre o que você precisa (mínimo de 10 caracteres).' : ''; }
+  };
+  var ids = Object.keys(rules);
+  function check(id) {
+    var el = $('#' + id), msg = rules[id](el.value), err = $('#' + el.getAttribute('aria-describedby'));
+    el.parentElement.classList.toggle('bad', !!msg);
+    el.setAttribute('aria-invalid', msg ? 'true' : 'false');
+    err.textContent = msg; err.hidden = !msg;
+    return !msg;
+  }
+  ids.forEach(function (id) {
+    var el = $('#' + id);
+    el.addEventListener('blur', function () { if (el.value || el.parentElement.classList.contains('bad')) check(id); });
+    el.addEventListener('input', function () { if (el.parentElement.classList.contains('bad')) check(id); });
+  });
+
+  var via = 'wa', busy = false;
   $$('button[type="submit"]', form).forEach(function (b) { b.addEventListener('click', function () { via = b.getAttribute('data-via'); }); });
+  function setBusy(on, btn) {
+    busy = on; form.setAttribute('aria-busy', String(on));
+    $$('button[type="submit"]', form).forEach(function (b) { b.disabled = on; b.classList.toggle('loading', on && b === btn); });
+    if (on) { note.className = 'form-note'; note.textContent = 'Preparando a sua mensagem…'; }
+  }
+  function thanks() { window.location.href = 'obrigado.html'; }
   form.addEventListener('submit', function (e) {
     e.preventDefault();
-    var ok = true;
-    $$('.field', form).forEach(function (f) {
-      var i = $('input,textarea', f), bad = !i.value.trim() || (i.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(i.value));
-      f.classList.toggle('bad', bad); if (bad) ok = false;
-    });
-    note.className = 'form-note';
-    if (!ok) { note.textContent = 'Preencha todos os campos com um e-mail válido para continuar.'; note.classList.add('err'); return; }
+    if (busy) return;
+    var first = null;
+    ids.forEach(function (id) { if (!check(id) && !first) first = id; });
+    if (first) {
+      note.className = 'form-note err'; note.textContent = 'Corrija os campos destacados para enviar.';
+      $('#' + first).focus(); return;
+    }
     var n = $('#f-name').value.trim(), m = $('#f-email').value.trim(), t = tel.value.trim(), msg = $('#f-msg').value.trim();
     var text = 'Olá, sou ' + n + '.\n\n' + msg + '\n\nE-mail: ' + m + '\nTelefone: ' + t;
-    if (via === 'wa') {
-      window.open('https://api.whatsapp.com/send/?phone=5511960817141&text=' + encodeURIComponent(text), '_blank', 'noopener');
-      note.textContent = 'Abrimos o WhatsApp com a sua mensagem pronta. É só enviar.';
-    } else {
-      window.location.href = 'mailto:jonnathan-lemos@hotmail.com?subject=' + encodeURIComponent('Contato pelo site: ' + n) + '&body=' + encodeURIComponent(text);
-      note.textContent = 'Abrimos o seu e-mail com a mensagem pronta. É só enviar.';
+    var btn = d.activeElement && d.activeElement.type === 'submit' ? d.activeElement : $('button[data-via="' + via + '"]', form);
+    setBusy(true, btn);
+
+    if (cfg.FORM_ENDPOINT) {
+      fetch(cfg.FORM_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify({ name: n, email: m, telefone: t, message: msg }) })
+        .then(function (r) { if (!r.ok) throw new Error('http'); thanks(); })
+        .catch(function () {
+          setBusy(false);
+          note.className = 'form-note err';
+          note.textContent = 'Não foi possível enviar agora. Tente pelo WhatsApp ou pelo e-mail ' + MAIL + '.';
+        });
+      return;
     }
-    note.classList.add('ok');
+    if (via === 'wa') {
+      var url = 'https://api.whatsapp.com/send/?phone=' + WA + '&text=' + encodeURIComponent(text);
+      var w = window.open(url, '_blank');
+      if (w) { try { w.opener = null; } catch (x) {} setTimeout(thanks, 900); }
+      else { window.location.href = url; }
+    } else {
+      window.location.href = 'mailto:' + MAIL + '?subject=' + encodeURIComponent('Contato pelo site: ' + n) + '&body=' + encodeURIComponent(text);
+      setTimeout(thanks, 1400);
+    }
   });
-  $$('.field input,.field textarea', form).forEach(function (i) { i.addEventListener('input', function () { i.parentElement.classList.remove('bad'); }); });
 
   var y = $('#year'); if (y) y.textContent = new Date().getFullYear();
 })();
